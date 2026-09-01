@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Online Store</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .navbar { margin-bottom: 50px; border-radius: 0; }
+    .jumbotron { margin-bottom: 0; }
+    footer { background-color: #f2f2f2; padding: 25px; }
+    #accountBar {
+      background:#1c1b1a;
+      color:#f3efe8;
+      font-family:"Helvetica Neue",Arial,sans-serif;
+      font-size:13px;
+      padding:8px 20px;
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:14px;
+    }
+    #accountBar span#userName { color:#8fd6d0; }
+    #accountBar button {
+      background:transparent;
+      border:1px solid #4a4844;
+      color:#f3efe8;
+      padding:4px 12px;
+      border-radius:4px;
+      cursor:pointer;
+      font-size:12px;
+    }
+    #accountBar button:hover { border-color:#8fd6d0; color:#8fd6d0; }
+  </style>
+</head>
+<body>
+
+<!-- ===== Auth guard: runs before the page is shown ===== -->
+<script>
+  // Demo-only session check (see login.html for details/limitations).
+  const session = JSON.parse(localStorage.getItem("store_session") || "null");
+  if (!session) {
+    window.location.href = "login.html";
+  }
+</script>
+
+<div id="accountBar">
+  Signed in as <span id="userName"></span>
+  <button id="logoutBtn">Log out</button>
+</div>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Online Store</h1>
+    <p>Mission, Vission & Values</p>
+  </div>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">vape shop</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Deals</a></li>
+        <li><a href="#">Stores</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">BLACK v1</div>
+        <div class="panel-body"><img src="images/V1.jpg" class="img-responsive" style="width:100%" alt="Black v1"></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-danger">
+        <div class="panel-heading">BLACK V2</div>
+        <div class="panel-body"><img src="images/V2.jpg" class="img-responsive" style="width:100%" alt="Black v2"></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-success">
+        <div class="panel-heading">DISPOSABLE VAPE</div>
+        <div class="panel-body"><img src="images/dispo.jpg" class="img-responsive" style="width:100%" alt="Disposable vape"></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">big pack black v1</div>
+        <div class="panel-body"><img src="images/big-pack-v1.jpg" class="img-responsive" style="width:100%" alt="Big pack black v1"></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">black v2 big pack</div>
+        <div class="panel-body"><img src="images/big-pack.jpg" class="img-responsive" style="width:100%" alt="Black v2 big pack"></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">despo big pack</div>
+        <div class="panel-body"><img src="images/disposable.jpg" class="img-responsive" style="width:100%" alt="Disposable big pack"></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br>
+
+<footer class="container-fluid text-center">
+  <p>Online Store Copyright</p>
+  <form class="form-inline">Get deals:
+    <input type="email" class="form-control" size="50" placeholder="Email Address">
+    <button type="button" class="btn btn-danger">Sign Up</button>
+  </form>
+</footer>
+
+<script>
+  if (session) {
+    document.getElementById("userName").textContent = session.name || session.email;
+  }
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("store_session");
+    window.location.href = "login.html";
+  });
+</script>
+
+</body>
+</html>
