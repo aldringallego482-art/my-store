@@ -39,10 +39,10 @@
 
 <!-- ===== Auth guard: runs before the page is shown ===== -->
 <script>
-  // Demo-only session check (see login.html for details/limitations).
+  // Demo-only session check (see index.html for details/limitations).
   const session = JSON.parse(localStorage.getItem("store_session") || "null");
   if (!session) {
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   }
 </script>
 
@@ -151,7 +151,7 @@
   }
   document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("store_session");
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   });
 </script>
 
