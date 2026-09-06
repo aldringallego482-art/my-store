@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://maxcdn.bootstrapcdn.com https://ajax.googleapis.com; img-src 'self' data:;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://maxcdn.bootstrapcdn.com https://ajax.googleapis.com https://www.gstatic.com https://*.googleapis.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com; img-src 'self' data:;">
 <title>Sign in — Online Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -31,122 +31,38 @@
     justify-content:center;
     padding:24px;
   }
-  .wrap{
-    width:100%;
-    max-width:380px;
-  }
-  .brand{
-    text-align:left;
-    margin-bottom:28px;
-  }
+  .wrap{ width:100%; max-width:380px; }
+  .brand{ text-align:left; margin-bottom:28px; }
   .brand .mark{
     font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:12px;
-    letter-spacing:.14em;
-    color:var(--mist);
+    font-size:12px; letter-spacing:.14em; color:var(--mist);
   }
-  .brand h1{
-    margin:6px 0 0;
-    font-size:28px;
-    font-weight:500;
-    letter-spacing:.01em;
-  }
-  .card{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:6px;
-    padding:28px;
-  }
+  .brand h1{ margin:6px 0 0; font-size:28px; font-weight:500; letter-spacing:.01em; }
+  .card{ background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:28px; }
   .toggle{
-    display:flex;
-    border:1px solid var(--line);
-    border-radius:5px;
-    overflow:hidden;
-    margin-bottom:22px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13px;
+    display:flex; border:1px solid var(--line); border-radius:5px;
+    overflow:hidden; margin-bottom:22px; font-family:"Helvetica Neue",Arial,sans-serif; font-size:13px;
   }
-  .toggle button{
-    flex:1;
-    padding:9px 0;
-    background:transparent;
-    color:var(--paper);
-    border:none;
-    cursor:pointer;
-    opacity:.55;
-  }
-  .toggle button.active{
-    background:var(--panel-2);
-    opacity:1;
-    color:var(--mist);
-  }
-  label{
-    display:block;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:12px;
-    color:#b9b4ac;
-    margin:14px 0 6px;
-  }
+  .toggle button{ flex:1; padding:9px 0; background:transparent; color:var(--paper); border:none; cursor:pointer; opacity:.55; }
+  .toggle button.active{ background:var(--panel-2); opacity:1; color:var(--mist); }
+  label{ display:block; font-family:"Helvetica Neue",Arial,sans-serif; font-size:12px; color:#b9b4ac; margin:14px 0 6px; }
   input{
-    width:100%;
-    padding:10px 12px;
-    background:var(--ink);
-    border:1px solid var(--line);
-    border-radius:4px;
-    color:var(--paper);
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14px;
+    width:100%; padding:10px 12px; background:var(--ink); border:1px solid var(--line);
+    border-radius:4px; color:var(--paper); font-family:"Helvetica Neue",Arial,sans-serif; font-size:14px;
   }
-  input:focus{
-    outline:2px solid var(--mist);
-    outline-offset:1px;
-    border-color:var(--mist);
-  }
-  .hint{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:11px;
-    color:#8a857c;
-    margin-top:5px;
-  }
+  input:focus{ outline:2px solid var(--mist); outline-offset:1px; border-color:var(--mist); }
+  .hint{ font-family:"Helvetica Neue",Arial,sans-serif; font-size:11px; color:#8a857c; margin-top:5px; }
   .submit{
-    width:100%;
-    margin-top:22px;
-    padding:12px 0;
-    background:var(--mist);
-    color:#16302c;
-    border:none;
-    border-radius:4px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:14px;
-    font-weight:600;
-    cursor:pointer;
+    width:100%; margin-top:22px; padding:12px 0; background:var(--mist); color:#16302c;
+    border:none; border-radius:4px; font-family:"Helvetica Neue",Arial,sans-serif; font-size:14px; font-weight:600; cursor:pointer;
   }
   .submit:hover{ background:#a3e2dc; }
-  .msg{
-    margin-top:14px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:13px;
-    min-height:16px;
-  }
+  .submit:disabled{ opacity:.6; cursor:not-allowed; }
+  .msg{ margin-top:14px; font-family:"Helvetica Neue",Arial,sans-serif; font-size:13px; min-height:16px; }
   .msg.error{ color:var(--error); }
   .msg.ok{ color:var(--mist); }
-  .foot{
-    margin-top:18px;
-    text-align:center;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:11px;
-    color:#7d786f;
-    line-height:1.6;
-  }
-  .age{
-    display:flex;
-    align-items:flex-start;
-    gap:8px;
-    margin-top:16px;
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:12px;
-    color:#b9b4ac;
-  }
+  .foot{ margin-top:18px; text-align:center; font-family:"Helvetica Neue",Arial,sans-serif; font-size:11px; color:#7d786f; line-height:1.6; }
+  .age{ display:flex; align-items:flex-start; gap:8px; margin-top:16px; font-family:"Helvetica Neue",Arial,sans-serif; font-size:12px; color:#b9b4ac; }
   .age input{ width:auto; margin-top:2px; }
 </style>
 </head>
@@ -168,7 +84,7 @@
       <input type="email" id="loginEmail" required autocomplete="username">
       <label for="loginPass">Password</label>
       <input type="password" id="loginPass" required autocomplete="current-password">
-      <button type="submit" class="submit">Log in</button>
+      <button type="submit" class="submit" id="loginBtn">Log in</button>
     </form>
 
     <form id="signupForm" style="display:none">
@@ -183,111 +99,109 @@
         <input type="checkbox" id="ageCheck" required>
         <label for="ageCheck" style="margin:0;color:#b9b4ac;">I confirm I am 21 years of age or older.</label>
       </div>
-      <button type="submit" class="submit">Create account</button>
+      <button type="submit" class="submit" id="signupBtn">Create account</button>
     </form>
 
     <div id="msg" class="msg"></div>
   </div>
 
   <div class="foot">
-    Demo authentication stored in this browser only.<br>
-    Not a substitute for a real server-side login system.
+    Secured by Firebase Authentication.
   </div>
 </div>
 
-<script>
-/*
-  ⚠️ DEMO-ONLY AUTH
-  ------------------
-  This runs entirely in the visitor's browser and stores accounts in
-  localStorage. It is fine for a prototype, but it is NOT secure:
-  anyone can open dev tools and read or edit "users", passwords are
-  not hashed, and there is no real session/token system. Before this
-  goes live with real customers, replace it with a proper backend
-  (e.g. Node/Express + a database, or an auth provider like Auth0 /
-  Firebase Auth / Supabase Auth) that:
-    - hashes passwords (bcrypt/argon2), never stores them in plain text
-    - issues secure, httpOnly session cookies or signed JWTs
-    - serves the whole site over HTTPS
-    - rate-limits login attempts
-*/
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    updateProfile
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const USERS_KEY = "store_users";
-const SESSION_KEY = "store_session";
+  const firebaseConfig = {
+    apiKey: "AIzaSyCCTMN2Nrjo4iQfQHUYfTKy8ONoAl8JycQ",
+    authDomain: "website-a62dc.firebaseapp.com",
+    projectId: "website-a62dc",
+    storageBucket: "website-a62dc.firebasestorage.app",
+    messagingSenderId: "479600220233",
+    appId: "1:479600220233:web:cee2437f0da5f87b090798"
+  };
 
-function getUsers(){
-  return JSON.parse(localStorage.getItem(USERS_KEY) || "{}");
-}
-function saveUsers(users){
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
-}
-function setMsg(text, kind){
-  const el = document.getElementById("msg");
-  el.textContent = text;
-  el.className = "msg " + (kind || "");
-}
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-// tabs
-const tabLogin = document.getElementById("tabLogin");
-const tabSignup = document.getElementById("tabSignup");
-const loginForm = document.getElementById("loginForm");
-const signupForm = document.getElementById("signupForm");
-
-tabLogin.addEventListener("click", () => {
-  tabLogin.classList.add("active");
-  tabSignup.classList.remove("active");
-  loginForm.style.display = "block";
-  signupForm.style.display = "none";
-  setMsg("");
-});
-tabSignup.addEventListener("click", () => {
-  tabSignup.classList.add("active");
-  tabLogin.classList.remove("active");
-  signupForm.style.display = "block";
-  loginForm.style.display = "none";
-  setMsg("");
-});
-
-// signup
-signupForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const name = document.getElementById("signupName").value.trim();
-  const email = document.getElementById("signupEmail").value.trim().toLowerCase();
-  const pass = document.getElementById("signupPass").value;
-
-  const users = getUsers();
-  if (users[email]) {
-    setMsg("An account with that email already exists.", "error");
-    return;
+  function setMsg(text, kind){
+    const el = document.getElementById("msg");
+    el.textContent = text;
+    el.className = "msg " + (kind || "");
   }
-  users[email] = { name, pass }; // demo only — plain text, see note above
-  saveUsers(users);
-  localStorage.setItem(SESSION_KEY, JSON.stringify({ email, name }));
-  setMsg("Account created. Redirecting…", "ok");
-  setTimeout(() => (window.location.href = "store.html"), 500);
-});
 
-// login
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
-  const pass = document.getElementById("loginPass").value;
+  const tabLogin = document.getElementById("tabLogin");
+  const tabSignup = document.getElementById("tabSignup");
+  const loginForm = document.getElementById("loginForm");
+  const signupForm = document.getElementById("signupForm");
 
-  const users = getUsers();
-  const user = users[email];
-  if (!user || user.pass !== pass) {
-    setMsg("Incorrect email or password.", "error");
-    return;
+  tabLogin.addEventListener("click", () => {
+    tabLogin.classList.add("active");
+    tabSignup.classList.remove("active");
+    loginForm.style.display = "block";
+    signupForm.style.display = "none";
+    setMsg("");
+  });
+  tabSignup.addEventListener("click", () => {
+    tabSignup.classList.add("active");
+    tabLogin.classList.remove("active");
+    signupForm.style.display = "block";
+    loginForm.style.display = "none";
+    setMsg("");
+  });
+
+  signupForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const pass = document.getElementById("signupPass").value;
+    const btn = document.getElementById("signupBtn");
+    btn.disabled = true;
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      await updateProfile(cred.user, { displayName: name });
+      setMsg("Account created. Redirecting…", "ok");
+      setTimeout(() => (window.location.href = "store.html"), 500);
+    } catch (err) {
+      setMsg(friendlyError(err.code), "error");
+      btn.disabled = false;
+    }
+  });
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value.trim();
+    const pass = document.getElementById("loginPass").value;
+    const btn = document.getElementById("loginBtn");
+    btn.disabled = true;
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+      setMsg("Welcome back. Redirecting…", "ok");
+      setTimeout(() => (window.location.href = "store.html"), 400);
+    } catch (err) {
+      setMsg(friendlyError(err.code), "error");
+      btn.disabled = false;
+    }
+  });
+
+  function friendlyError(code){
+    switch(code){
+      case "auth/email-already-in-use": return "An account with that email already exists.";
+      case "auth/invalid-email": return "That email address doesn't look right.";
+      case "auth/weak-password": return "Password should be at least 6 characters.";
+      case "auth/user-not-found":
+      case "auth/wrong-password":
+      case "auth/invalid-credential": return "Incorrect email or password.";
+      default: return "Something went wrong. Please try again.";
+    }
   }
-  localStorage.setItem(SESSION_KEY, JSON.stringify({ email, name: user.name }));
-  setMsg("Welcome back. Redirecting…", "ok");
-  setTimeout(() => (window.location.href = "store.html"), 400);
-});
-
-// if already logged in, skip straight to the store
-if (localStorage.getItem(SESSION_KEY)) {
-  window.location.href = "store.html";
-}
 </script>
 </body>
 </html>

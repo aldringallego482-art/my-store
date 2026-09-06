@@ -3,7 +3,7 @@
 <head>
   <title>Online Store</title>
   <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://maxcdn.bootstrapcdn.com https://ajax.googleapis.com; img-src 'self' data:;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://maxcdn.bootstrapcdn.com https://ajax.googleapis.com https://www.gstatic.com https://*.googleapis.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com; img-src 'self' data:;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -36,16 +36,7 @@
     #accountBar button:hover { border-color:#8fd6d0; color:#8fd6d0; }
   </style>
 </head>
-<body>
-
-<!-- ===== Auth guard: runs before the page is shown ===== -->
-<script>
-  // Demo-only session check (see index.html for details/limitations).
-  const session = JSON.parse(localStorage.getItem("store_session") || "null");
-  if (!session) {
-    window.location.href = "index.html";
-  }
-</script>
+<body style="display:none" id="pageBody">
 
 <div id="accountBar">
   Signed in as <span id="userName"></span>
@@ -146,12 +137,33 @@
   </form>
 </footer>
 
-<script>
-  if (session) {
-    document.getElementById("userName").textContent = session.name || session.email;
-  }
-  document.getElementById("logoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("store_session");
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCCTMN2Nrjo4iQfQHUYfTKy8ONoAl8JycQ",
+    authDomain: "website-a62dc.firebaseapp.com",
+    projectId: "website-a62dc",
+    storageBucket: "website-a62dc.firebasestorage.app",
+    messagingSenderId: "479600220233",
+    appId: "1:479600220233:web:cee2437f0da5f87b090798"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "index.html";
+      return;
+    }
+    document.getElementById("userName").textContent = user.displayName || user.email;
+    document.getElementById("pageBody").style.display = "block";
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await signOut(auth);
     window.location.href = "index.html";
   });
 </script>
